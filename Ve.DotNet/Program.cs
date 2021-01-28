@@ -9,11 +9,15 @@ namespace Ve.DotNet
     {
         static void Main(string[] args)
         {
-            string sentence = "ずっと好きだった";
+            string sentence = "太郎はこの本を笑也を見た女性に渡した。すもももももももものうち。";
             var tagger = MeCabTagger.Create();
             IEnumerable<MeCabNode> enumbrableSet = tagger.ParseToNodes(sentence);
-            // var vcParser = new Parse(enumbrableSet);
-
+            var veParser = new VeParse(enumbrableSet);
+            var wordList = veParser.Words();
+            foreach (var word in wordList)
+            {
+                Console.WriteLine(word);
+            }
             // MeCabNodeUseExample(enumbrableSet);
 
             // foreach(var cur in tagger.ParseToNodes(sentence))
