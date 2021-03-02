@@ -1,4 +1,4 @@
-/**
+/*
   * This file contains code ported from Kim Ahlström's Ve (MIT License).
   * https://github.com/Kimtaro/ve
   *
@@ -20,7 +20,7 @@
   *
   * THE SOFTWARE IS PROVIDED “AS IS”, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
   * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-  * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+  * FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT. IN NO EVENT SHALL THE
   * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
   * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
   * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
@@ -33,55 +33,75 @@ namespace Ve.DotNet
 {
     public class VeWord
     {
-        // These five seem underdeveloped and underpopulated:
-        private string reading;
-        private string transcription;
-        private Grammar grammar;
-        private string lemma; // "聞く"
-        private PartOfSpeech part_of_speech; // eg. Pos.Noun
-        private List<MeCabNode> tokens = new (); // those which were eaten up by this one word: {聞か, せ, られ}
-        private string word; // "聞かせられ"
+        // XXX: Seems not use currently
+        private Grammar _grammar;
 
         public VeWord(
-            string read,
             string pronunciation,
+            string reading,
+            string lemma,
+            PartOfSpeech partOfSpeech,
             Grammar grammar,
-            string basic,
-            PartOfSpeech part_of_speech,
             string nodeStr,
-            MeCabNode token) 
+            MeCabNode token)
         {
-            this.reading = read;
-            this.transcription = pronunciation;
-            this.grammar = grammar;
-            this.lemma = basic;
-            this.part_of_speech = part_of_speech;
-            this.word = nodeStr;
-            tokens.Add(token);
+            Pronunciation = pronunciation;
+            Reading = reading;
+            Lemma = lemma;
+            PartOfSpeech = partOfSpeech;
+
+            _grammar = grammar;            
+            Word = nodeStr;
+            Tokens.Add(token);
         }
+        
+        // These five properties seem underdeveloped and underpopulated:
+        /// <summary>
+        /// <para>発音</para>
+        /// <para>ep. は->ワ</para>
+        /// </summary>
+        public string Pronunciation { get; private set; }
 
-        public PartOfSpeech PartOfSpeech 
-        {
-            get => part_of_speech;
-            set => this.part_of_speech = value;
-        }
+        /// <summary>
+        /// 読み
+        /// </summary>
+        public string Reading { get; private set; }
 
-        public string Lemma { get => lemma; }
+        /// <summary>
+        /// <para>活用形、単語のルート</para>
+        /// <para>ep. "聞く"</para>
+        /// </summary>
+        public string Lemma { get; private set; }
 
-        public List<MeCabNode> Tokens { get => tokens; }
+        /// <summary>
+        /// 品詞
+        /// </summary>
+        public PartOfSpeech PartOfSpeech { get; private set; }
 
-        public string Word { get => word; }
+        /// <summary>
+        /// <para>形態素、the surface</para>
+        /// <para>The group made by Ve</para>
+        /// <para>ep. "聞かせられ"</para>
+        /// </summary>
+        public string Word { get; private set; }
 
-        public void AppendToWord(string suffix) => word += suffix;
-
-        public void AppendToReading(string suffix) => reading += suffix;
-
-        public void AppendToTranscription(string suffix) => transcription += suffix;
-
+        /// <summary>
+        /// Those which were eaten up by this one word: {聞か, せ, られ}
+        /// </summary>
+        public List<MeCabNode> Tokens { get; } = new();
+        
+        public void AppendToWord(string suffix) => Word += suffix;
+        
+        public void AppendToReading(string suffix) => Reading += suffix;
+        
+        public void AppendToTranscription(string suffix) => Pronunciation += suffix;
+        
         // Not sure when this would change.
-        public void AppendToLemma(string suffix) => lemma += suffix;
+        public void AppendToLemma(string suffix) => Lemma += suffix;
 
-        public override string ToString() => word;
+        public void UpdatePartOfSpeech(PartOfSpeech value) => PartOfSpeech = value;
+        
+        public override string ToString() => Word;
     }
 
     public enum PartOfSpeech
@@ -93,7 +113,7 @@ namespace Ve.DotNet
         Adverb,
         Determiner,
         Preposition,
-        Postposition,
+        PostPosition,
         Verb,
         Suffix,
         Prefix,
@@ -103,13 +123,24 @@ namespace Ve.DotNet
         Unknown,
         Symbol,
         Other,
+        /// <summary>
+        /// To be determined
+        /// </summary>
         TBD
     }
 
     public enum Grammar 
     {
+        Unassigned,
+        
+        /// <summary>
+        /// Mark as "名詞-動詞非自立的", and not use
+        /// </summary>
         Auxiliary,
-        Nominal,
-        Unassigned
+        
+        /// <summary>
+        /// Mark as "名詞-特殊-助動詞語幹"
+        /// </summary>
+        Nominal
     }
 }
