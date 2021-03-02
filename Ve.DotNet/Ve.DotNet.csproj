@@ -4,9 +4,9 @@
     <TargetFramework>net5.0</TargetFramework>
     <Nullable>enable</Nullable>
     <Authors>k1mlka</Authors>
-    <PackageVersion>0.0.1</PackageVersion>
+    <PackageVersion></PackageVersion>
     <PackageProjectUrl>https://github.com/luojunyuan/Ve.DotNet</PackageProjectUrl>
-    <PackageLicenseUrl>https://github.com/luojunyuan/Ve.DotNet/blob/master/LICENSE</PackageLicenseUrl>
+    <PackageLicenseUrl></PackageLicenseUrl>
     <RepositoryUrl>https://github.com/luojunyuan/Ve.DotNet</RepositoryUrl>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <RepositoryType>Extention</RepositoryType>
