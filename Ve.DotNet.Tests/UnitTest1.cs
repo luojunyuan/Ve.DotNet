@@ -9,19 +9,19 @@ namespace Ve.DotNet.Tests
     [TestClass]
     public class UnitTest1
     {
-        private const string Example1 = "太郎はこの本を笑也を見た女性に渡した。";
+        private const string Example1 = "稼ぎます";
         private const string Example2 = "すもももももももものうち。";
         private const string Example3 = "行く川のながれは絶えずして、しかももとの水にあらず。";
+        private const string Example4 = "アルバイトとして来てくれた庭坂莉良さん、汐ノ宮璃貝さん――。";
         
         [TestMethod]
         public void VeWordBasicOutputTestMethod()
         {
-            var sentence = Example1;
+            var sentence = Example3;
             
             var tagger = MeCabTagger.Create();
             var enumerableSet = tagger.ParseToNodes(sentence);
             
-            var parser = new VeParser();
             var wordList = VeParser.Words(enumerableSet);
             foreach (var word in wordList)
             {
@@ -34,7 +34,7 @@ namespace Ve.DotNet.Tests
         [TestMethod]
         public void MeCabIpaDicNodeMethodExample()
         {
-            var sentence = Example2;
+            var sentence = Example1;
             
             var tagger = MeCabTagger.Create();
             var enumerableSet = tagger.ParseToNodes(sentence);

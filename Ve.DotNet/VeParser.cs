@@ -34,7 +34,7 @@ using MeCab.Extension.IpaDic;
 
 namespace Ve.DotNet
 {
-    public class VeParser
+    public static class VeParser
     {
         private const string NoData = "*";
 
