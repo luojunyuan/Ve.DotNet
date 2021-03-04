@@ -86,7 +86,8 @@ namespace Ve.DotNet
         public string Word { get; private set; }
 
         /// <summary>
-        /// Those which were eaten up by this one word: {聞か, せ, られ}
+        /// <para>Those which were eaten up by this one word: {聞か, せ, られ}</para>
+        /// <para>元のMeCabNode infoが含まれている</para>>
         /// </summary>
         public List<MeCabNode> Tokens { get; } = new();
         
@@ -106,27 +107,22 @@ namespace Ve.DotNet
 
     public enum PartOfSpeech
     {
-        Noun,
-        ProperNoun,
-        Pronoun,
-        Adjective,
-        Adverb,
-        Determiner,
-        Preposition,
-        PostPosition,
-        Verb,
-        Suffix,
-        Prefix,
-        Conjunction,
-        Interjection,
-        Number,
-        Unknown,
-        Symbol,
-        Other,
-        /// <summary>
-        /// To be determined
-        /// </summary>
-        TBD
+        名詞,
+        固有名詞,
+        代名詞,
+        形容詞,
+        副詞,
+        連体詞,
+        助詞,
+        動詞,
+        人名接尾,
+        接頭詞,
+        接続詞,
+        感動詞,
+        数, 
+        記号,
+        その他,
+        未定だ
     }
 
     public enum Grammar 

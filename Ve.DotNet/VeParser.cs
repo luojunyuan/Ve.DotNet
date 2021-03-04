@@ -70,17 +70,17 @@ namespace Ve.DotNet
                 {
                     case "名詞":
                         {
-                            partOfSpeech = PartOfSpeech.Noun;
+                            partOfSpeech = PartOfSpeech.名詞;
                             if (current.GetPartsOfSpeechSection1().Equals(NoData))
                                 break;
 
                             switch (current.GetPartsOfSpeechSection1())
                             {
                                 case "固有名詞":
-                                    partOfSpeech = PartOfSpeech.ProperNoun;
+                                    partOfSpeech = PartOfSpeech.固有名詞;
                                     break;
                                 case "代名詞":
-                                    partOfSpeech = PartOfSpeech.Pronoun;
+                                    partOfSpeech = PartOfSpeech.代名詞;
                                     break;
                                 case "副詞可能":
                                 case "サ変接続":
@@ -98,11 +98,11 @@ namespace Ve.DotNet
                                     switch (following.GetConjugatedForm()) // [CTYPE]
                                     {
                                         case "サ変・スル":
-                                            partOfSpeech = PartOfSpeech.Verb;
+                                            partOfSpeech = PartOfSpeech.動詞;
                                             eatNext = true;
                                             break;
                                         case "特殊・ダ":
-                                            partOfSpeech = PartOfSpeech.Adjective;
+                                            partOfSpeech = PartOfSpeech.形容詞;
                                             if (following.GetPartsOfSpeechSection1().Equals("体言接続"))
                                             {
                                                 eatNext = true;
@@ -110,7 +110,7 @@ namespace Ve.DotNet
                                             }
                                             break;
                                         case "特殊・ナイ":
-                                            partOfSpeech = PartOfSpeech.Adjective;
+                                            partOfSpeech = PartOfSpeech.形容詞;
                                             eatNext = true;
                                             break;
                                         default:
@@ -118,7 +118,7 @@ namespace Ve.DotNet
                                                 && following.Surface.Equals("に"))
                                             {
                                                 // Ve script redundantly (I think) also has eat_next = false here.
-                                                partOfSpeech = PartOfSpeech.Adverb;
+                                                partOfSpeech = PartOfSpeech.副詞;
                                             }
                                             break;
                                     }
@@ -141,7 +141,7 @@ namespace Ve.DotNet
                                             if (following.GetPartsOfSpeech().Equals("助詞")
                                                 && following.Surface.Equals("に"))
                                             {
-                                                partOfSpeech = PartOfSpeech.Adverb;
+                                                partOfSpeech = PartOfSpeech.副詞;
                                  
                                                 
                                                 // Changed this to false because 'case JOSHI' has 'attach_to_previous = true'.
@@ -151,7 +151,7 @@ namespace Ve.DotNet
                                         case "助動詞語幹":
                                             if (following.GetConjugatedForm().Equals("特殊・ダ"))
                                             {
-                                                partOfSpeech = PartOfSpeech.Verb;
+                                                partOfSpeech = PartOfSpeech.動詞;
                                                 grammar = Grammar.Auxiliary;
                                                 if (following.GetInflection().Equals("体言接続"))
                                                 {
@@ -161,12 +161,12 @@ namespace Ve.DotNet
                                             else if (following.GetPartsOfSpeech().Equals("助詞")
                                                 && following.GetPartsOfSpeechSection2().Equals("副詞化"))
                                             {
-                                                partOfSpeech = PartOfSpeech.Adverb;
+                                                partOfSpeech = PartOfSpeech.副詞;
                                                 eatNext = true;
                                             }
                                             break;
                                         case "形容動詞語幹":
-                                            partOfSpeech = PartOfSpeech.Adjective;
+                                            partOfSpeech = PartOfSpeech.形容詞;
                                             if (following.GetConjugatedForm().Equals("特殊・ダ") &&
                                                 following.GetInflection().Equals("体言接続")
                                                 || following.GetPartsOfSpeechSection1().Equals("連体化"))
@@ -180,8 +180,8 @@ namespace Ve.DotNet
                                     // TODO: "recurse and find following numbers and add to this word. Except non-numbers 
                                     // like 幾"
                                     // Refers to line 261.
-                                    partOfSpeech = PartOfSpeech.Number;
-                                    if (wordList.Count > 0 && wordList[finalSlot].PartOfSpeech.Equals(PartOfSpeech.Number))
+                                    partOfSpeech = PartOfSpeech.数;
+                                    if (wordList.Count > 0 && wordList[finalSlot].PartOfSpeech.Equals(PartOfSpeech.数))
                                     {
                                         attachToPrevious = true;
                                         alsoAttachToLemma = true;
@@ -189,30 +189,30 @@ namespace Ve.DotNet
                                     break;
                                 case "接尾":
                                     // Refers to line 267.
-                                    if (current.GetPartsOfSpeechSection2().Equals("人名"))
+                                    switch (current.GetPartsOfSpeechSection2())
                                     {
-                                        partOfSpeech = PartOfSpeech.Suffix;
-                                    }
-                                    else
-                                    {
-                                        if (current.GetPartsOfSpeechSection2().Equals("特殊") &&
-                                            current.GetOriginalForm().Equals("さ"))
-                                        {
-                                            updatePos = true;
-                                            partOfSpeech = PartOfSpeech.Noun;
-                                        }
-                                        else
-                                        {
+                                        case "人名":
+                                            partOfSpeech = PartOfSpeech.人名接尾;
+                                            break;
+                                        case "特殊":
+                                            if (current.GetOriginalForm().Equals("さ"))
+                                            {
+                                                updatePos = true;
+                                                partOfSpeech = PartOfSpeech.名詞;
+                                            }
+                                            attachToPrevious = true;
+                                            break;
+                                        default: // 助数词
                                             alsoAttachToLemma = true;
-                                        }
-                                        attachToPrevious = true;
+                                            attachToPrevious = true;
+                                            break;
                                     }
                                     break;
                                 case "接続詞的":
-                                    partOfSpeech = PartOfSpeech.Conjunction;
+                                    partOfSpeech = PartOfSpeech.接続詞;
                                     break;
                                 case "動詞非自立的":
-                                    partOfSpeech = PartOfSpeech.Verb;
+                                    partOfSpeech = PartOfSpeech.動詞;
                                     grammar = Grammar.Nominal; // not using.
                                     break;
                             }
@@ -220,12 +220,12 @@ namespace Ve.DotNet
                         break;
                     case "接頭詞":
                         // TODO: "elaborate this when we have the "main part" feature for words?"
-                        partOfSpeech = PartOfSpeech.Prefix;
+                        partOfSpeech = PartOfSpeech.接頭詞;
                         break;
                     case "助動詞":
                         // Refers to line 290.
-                        partOfSpeech = PartOfSpeech.PostPosition;
-                        List<string> tokushuList = new List<string> { "特殊・タ", "特殊・ナイ", "特殊・タイ", "特殊・マス", "特殊・ヌ" };
+                        partOfSpeech = PartOfSpeech.助詞;
+                        List<string> tokushuList = new() { "特殊・タ", "特殊・ナイ", "特殊・タイ", "特殊・マス", "特殊・ヌ" };
                         if (!previous.GetPartsOfSpeechSection1().Equals("係助詞")
                             && tokushuList.Contains(current.GetConjugatedForm()))
                         {
@@ -239,12 +239,12 @@ namespace Ve.DotNet
                         else if (current.GetConjugatedForm().Equals("特殊・ダ") || current.GetConjugatedForm().Equals("特殊・デス")
                             && !current.Surface.Equals("な"))
                         {
-                            partOfSpeech = PartOfSpeech.Verb;
+                            partOfSpeech = PartOfSpeech.動詞;
                         }
                         break;
                     case "動詞":
                         // Refers to line 299.
-                        partOfSpeech = PartOfSpeech.Verb;
+                        partOfSpeech = PartOfSpeech.動詞;
                         switch (current.GetPartsOfSpeechSection1())
                         {
                             case "接尾":
@@ -259,40 +259,49 @@ namespace Ve.DotNet
                         }
                         break;
                     case "形容詞":
-                        partOfSpeech = PartOfSpeech.Adjective;
+                        partOfSpeech = PartOfSpeech.形容詞;
                         break;
                     case "助詞":
                         // Refers to line 309.
-                        partOfSpeech = PartOfSpeech.PostPosition;
-                        List<string> qualifyingList2 = new List<string> { "て", "で", "ば" };
-                        if (current.GetPartsOfSpeechSection1().Equals("接続助詞") &&
-                            qualifyingList2.Contains(current.Surface))
-                            //|| current.Surface.Equals("に")) // added NI
+                        partOfSpeech = PartOfSpeech.助詞;
+                        List<string> qualifyingList2 = new() { "て", "で", "ば" };
+                        switch (current.GetPartsOfSpeechSection1())
                         {
-                            attachToPrevious = true;
+                            case "接続助詞":
+                                if (qualifyingList2.Contains(current.Surface) ||
+                                    current.Surface.Equals("に"))
+                                {
+                                    attachToPrevious = true;
+                                }
+                                break;
+                            case "連体化": // の 
+                            case "係助詞": // は
+                            case "格助詞": // で
+                            case "終助詞": // な
+                                break;
                         }
                         break;
                     case "連体詞":
-                        partOfSpeech = PartOfSpeech.Determiner;
+                        partOfSpeech = PartOfSpeech.連体詞;
                         break;
                     case "接続詞":
-                        partOfSpeech = PartOfSpeech.Conjunction;
+                        partOfSpeech = PartOfSpeech.接続詞;
                         break;
                     case "副詞":
-                        partOfSpeech = PartOfSpeech.Adverb;
+                        partOfSpeech = PartOfSpeech.副詞;
                         break;
                     case "記号":
-                        partOfSpeech = PartOfSpeech.Symbol;
+                        partOfSpeech = PartOfSpeech.記号;
                         break;
                     case "フィラー":
                     case "感動詞":
-                        partOfSpeech = PartOfSpeech.Interjection;
+                        partOfSpeech = PartOfSpeech.感動詞;
                         break;
                     case "その他":
-                        partOfSpeech = PartOfSpeech.Other;
+                        partOfSpeech = PartOfSpeech.その他;
                         break;
                     default:
-                        partOfSpeech = PartOfSpeech.TBD;
+                        partOfSpeech = PartOfSpeech.未定だ;
                         break;
                         // C'est une catastrophe
                 }

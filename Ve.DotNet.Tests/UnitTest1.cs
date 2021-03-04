@@ -74,5 +74,16 @@ namespace Ve.DotNet.Tests
             Trace.WriteLine($"Surface: {node.Surface}");
             Trace.WriteLine($"WCost: {node.WCost}");
         }
+
+        [TestMethod]
+        public void VeWordParserDebug()
+        {
+            var tagger = MeCabTagger.Create();
+            string sentence = Example4;
+            foreach (var veWord in tagger.ParseToNodes(sentence).ParseVeWords())
+            {
+                Trace.WriteLine(veWord.Word);
+            }
+        }
     }
 }
