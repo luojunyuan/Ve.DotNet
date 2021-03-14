@@ -34,7 +34,8 @@ namespace Ve.DotNet
     public class VeWord
     {
         // XXX: Seems not use currently
-        private Grammar _grammar;
+        // ReSharper disable once NotAccessedField.Local
+        private readonly Grammar _grammar;
 
         public VeWord(
             string pronunciation,

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Ve.DotNet;
 
+// ReSharper disable once CheckNamespace
 namespace MeCab.Extension.IpaDic
 {
     public static class VeParser

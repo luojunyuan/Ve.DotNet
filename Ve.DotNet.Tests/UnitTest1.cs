@@ -1,4 +1,3 @@
-using System;
 using System.Diagnostics;
 using MeCab;
 using MeCab.Extension.IpaDic;
