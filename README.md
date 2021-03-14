@@ -1,7 +1,5 @@
 # Ve.DotNet
 
-# UpdateChecker
-
 Channel | Status
 -|-
 CI | [![CI](https://github.com/luojunyuan/Ve.DotNet/workflows/CI/badge.svg)](https://github.com/luojunyuan/Ve.DotNet/actions)
