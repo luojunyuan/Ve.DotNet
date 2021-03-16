@@ -49,7 +49,7 @@ namespace Ve.DotNet
             var tokenArray = new List<MeCabNode>(nodeEnumerable).ToArray()[1..^1];
             
             List<VeWord> wordList = new();
-            MeCabNode previous = new();
+            MeCabNode? previous = null;
 
             // FIXME: Not stable
             for (var i = 0; i < tokenArray.Length; i++)
@@ -226,7 +226,7 @@ namespace Ve.DotNet
                         // Refers to line 290.
                         partOfSpeech = PartOfSpeech.助詞;
                         List<string> tokushuList = new() { "特殊・タ", "特殊・ナイ", "特殊・タイ", "特殊・マス", "特殊・ヌ" };
-                        if (!previous.GetPartsOfSpeechSection1().Equals("係助詞")
+                        if (previous is null || !previous.GetPartsOfSpeechSection1().Equals("係助詞")
                             && tokushuList.Contains(current.GetConjugatedForm()))
                         {
                             attachToPrevious = true;
