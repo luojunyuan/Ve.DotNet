@@ -11,7 +11,7 @@
     <RepositoryType>Extention</RepositoryType>
     <PackageTags>mecab, ve</PackageTags>
     <Version>5.0.3</Version>
-    <PackageId>Ve.DotNet</PackageId>
+    <PackageId>VeParse.DotNet</PackageId>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
   </PropertyGroup>
 
