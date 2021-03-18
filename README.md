@@ -3,7 +3,7 @@
 Channel | Status
 -|-
 CI | [![CI](https://github.com/luojunyuan/Ve.DotNet/workflows/CI/badge.svg)](https://github.com/luojunyuan/Ve.DotNet/actions)
-NuGet.org | [![NuGet.org](https://img.shields.io/nuget/v/luojunyuan.Ve.DotNet.svg)](https://www.nuget.org/packages/luojunyuan.Ve.DotNet/)
+NuGet.org | [![NuGet.org](https://img.shields.io/nuget/v/VeParse.DotNet.svg)](https://www.nuget.org/packages/VeParse.DotNet/)
 
 This repository is a port of [Ve](https://github.com/Kimtaro/ve) (a warpper of mecab or kuromoji, similar to cabocha)
 
