@@ -6,7 +6,7 @@
     <Authors>k1mlka</Authors>
     <PackageProjectUrl>https://github.com/luojunyuan/Ve.DotNet</PackageProjectUrl>
     <RepositoryUrl>https://github.com/luojunyuan/Ve.DotNet</RepositoryUrl>
-    <Description>A linguistic framework for anyone. No degree required. Read all about it on https://github.com/Kimtaro/ve.</Description>
+    <Description>A linguistic framework for anyone. No degree required. Read all about it on https://github.com/Kimtaro/ve</Description>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <RepositoryType>Extention</RepositoryType>
     <PackageTags>mecab, ve</PackageTags>
