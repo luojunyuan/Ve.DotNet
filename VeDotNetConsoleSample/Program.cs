@@ -6,7 +6,7 @@ namespace VeDotNetConsoleSample
 {
     internal class Program
     {
-        private const string Example1 = "太郎はこの本を笑也を見た女性に渡した。";
+        private const string Example1 = "「あっ、パパ！ううん、全然待ってないよ。れいあ達もさっき来たところだもん。ね、すずか？」";
 
         private static void Main()
         {

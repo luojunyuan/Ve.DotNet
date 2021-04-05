@@ -325,9 +325,9 @@ namespace Ve.DotNet
                 else
                 {
                     VeWord word = new(
-                        current.GetPronounciation(),
-                        current.GetReading(),
-                        current.GetOriginalForm(),
+                        current.GetPronounciation() ?? string.Empty,
+                        current.GetReading() ?? string.Empty,
+                        current.GetOriginalForm() ?? string.Empty,
                         partOfSpeech,
                         grammar,
                         current.Surface,

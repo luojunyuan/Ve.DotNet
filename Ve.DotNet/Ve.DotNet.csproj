@@ -10,7 +10,7 @@
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <RepositoryType>Extention</RepositoryType>
     <PackageTags>mecab, ve</PackageTags>
-    <Version>5.0.3</Version>
+    <Version>5.0.4</Version>
     <PackageId>VeParse.DotNet</PackageId>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
   </PropertyGroup>
